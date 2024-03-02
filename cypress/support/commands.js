@@ -1,3 +1,5 @@
+import { boolean } from "joi"
+
 Cypress.Commands.add('token', (email, senha) => {
     cy.request({
         method: 'POST',
@@ -26,3 +28,26 @@ Cypress.Commands.add('token', (email, senha) => {
           failOnStatusCode: false
     })
  })
+
+ Cypress.Commands.add('cadastrarUsuario',(usuario,email,senha,boolean) =>{
+    cy.request({
+        method:'POST',
+        url:'usuarios',
+        body:{
+        "nome": usuario,
+        "email": email,
+        "password": senha,
+        "administrador": boolean
+       
+         },failOnStatusCode: false
+        })
+    })
+
+    Cypress.Commands.add('listaUsuariosCadastrados',() =>{
+        cy.request({
+            method:'GET',
+            url:'usuarios'
+          })
+
+        })
+       
